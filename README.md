@@ -13,6 +13,7 @@
 # Considerations
 - The outlined algorithm steps work on paper, but would it be better to have intentionally incorrect guesses sometimes?
 - Possibly have an eval function for all guesses. (Current idea is random selection)
+- Could be possible where the solution is not our guess list? Might need brute force algorithm solution.
 
 # DATA STRUCTURES
 - Not In Solution: List of letters (grays) that are not in the solution
