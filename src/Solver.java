@@ -188,23 +188,25 @@ public class Solver {
     private String getRandomGuessNoDupes(){
         boolean validGuess = false;
         String guess = "";
-        int duplicateCount = -1;
         while(!validGuess){
             Random rand = new Random();
             int randomNum = rand.nextInt(openGuessList.size());
             guess = openGuessList.get(randomNum);
+            int duplicateCount = 0;
             for (int i = 0; i < guess.length(); i++){//Grab the first letter
-                duplicateCount = -1; //Reset duplicate count for new letter
                 for (int j = 0; j < guess.length(); j++){//Check against the other letters
-                    if(guess.charAt(i) == guess.charAt(j)){
-                        duplicateCount++;
+                    if(i != j){ //Don't check against self
+                        if(guess.charAt(i) == guess.charAt(j)){
+                            duplicateCount++;
+                        }
                     }
                 }
-            }
-            if(duplicateCount == 0){
-                validGuess = true;
-            }else{
-                System.out.println("SOLVER: Discard " + guess + " as a starting guess. (" + duplicateCount + " duplicates)");
+                if(duplicateCount == 0){
+                    validGuess = true;
+                }else{
+                    validGuess = false;
+                    System.out.println("SOLVER: Discard " + guess + " as a starting guess. (" + duplicateCount + " duplicates)");
+                }
             }
         }
         return guess;
