@@ -28,10 +28,11 @@ public class Solver {
             notInSolutionHere.add(new ArrayList<>()); //Prefill the list with lists
         }
         boolean foundSolution = false;
+        String guess = getRandomGuessNoDupes();
         while(!foundSolution){
-            String guess = getRandomGuess();
             guessHistory.add(guess);
             foundSolution = checkGuess(guess);
+            guess = getRandomGuess();
         }
 
         //Prints gusses taken
@@ -182,6 +183,31 @@ public class Solver {
         Random rand = new Random();
         int randomNum = rand.nextInt(openGuessList.size());
         return openGuessList.get(randomNum);
+    }
+    // Picks a random guess without duplicates
+    private String getRandomGuessNoDupes(){
+        boolean validGuess = false;
+        String guess = "";
+        int duplicateCount = -1;
+        while(!validGuess){
+            Random rand = new Random();
+            int randomNum = rand.nextInt(openGuessList.size());
+            guess = openGuessList.get(randomNum);
+            for (int i = 0; i < guess.length(); i++){//Grab the first letter
+                duplicateCount = -1; //Reset duplicate count for new letter
+                for (int j = 0; j < guess.length(); j++){//Check against the other letters
+                    if(guess.charAt(i) == guess.charAt(j)){
+                        duplicateCount++;
+                    }
+                }
+            }
+            if(duplicateCount == 0){
+                validGuess = true;
+            }else{
+                System.out.println("SOLVER: Discard " + guess + " as a starting guess. (" + duplicateCount + " duplicates)");
+            }
+        }
+        return guess;
     }
 
     // Load the list of gusses into a new array list
