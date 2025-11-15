@@ -30,11 +30,11 @@ public class Checker {
             }
         }
         //Print result
-        System.out.print("CHECKER: Results For: " + guess + ": ");
+        /*System.out.print("CHECKER: Results For: " + guess + ": ");
         for(int j = 0; j < resultColors.length; j++){
             System.out.print(resultColors[j]+", ");
         }
-        System.out.print('\n');
+        System.out.print('\n');*/
 
         return resultColors;
     }
