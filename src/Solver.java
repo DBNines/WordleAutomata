@@ -28,11 +28,14 @@ public class Solver {
             notInSolutionHere.add(new ArrayList<>()); //Prefill the list with lists
         }
         boolean foundSolution = false;
-        String guess = getRandomGuessNoDupes();
+        //String guess = getRandomGuessNoDupes();
+        Eval guessEval = new Eval();
+        
         while(!foundSolution){
+            String guess = guessEval.findBestWordFromList(openGuessList);
             guessHistory.add(guess);
             foundSolution = checkGuess(guess);
-            guess = getRandomGuess();
+            //guess = guessEval.findBestWordFromList(openGuessList);//getRandomGuess();
         }
 
         //Prints gusses taken

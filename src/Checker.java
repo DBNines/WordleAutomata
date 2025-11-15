@@ -6,6 +6,9 @@ public class Checker {
     public enum LetterColor {
         Gray, Green, Yellow
     }
+    public Checker(){
+        this.solution = null;
+    }
 
     public Checker(String solution) {
         this.solution = solution;
@@ -13,6 +16,9 @@ public class Checker {
 
     public boolean checkGuess(String guess) {
         return solution.equals(guess);
+    }
+    public void setSolution(String solution){
+        this.solution = solution;
     }
 
     public LetterColor[] getResult(String guess) {
