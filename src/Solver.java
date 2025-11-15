@@ -1,6 +1,11 @@
+package src;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+
+import src.Checker.LetterColor;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,13 +14,13 @@ public class Solver {
     private static final String guessListFileName = "guess_list.txt";
     private ArrayList<String> openGuessList;
     private ArrayList<String> guessHistory = new ArrayList<>();
-    private String solution;
+    private Checker SolutionChecker; 
     // Critera data structures
     private ArrayList<Character> notInSolution = new ArrayList<>(); // Equivalent to gray letters
 
     public Solver(String solution) {
         this.openGuessList = loadGuessList();
-        this.solution = solution;
+        SolutionChecker = new Checker(solution);
         boolean foundSolution = false;
         while(!foundSolution){
             String guess = getRandomGuess();
@@ -25,33 +30,44 @@ public class Solver {
 
         //Prints gusses taken
         Iterator<String> itr = guessHistory.iterator();
+        int counter = 0;
         while(itr.hasNext()){
-            System.out.println(itr.next());
+            counter++;
+            System.out.println(counter + " | " + itr.next());
         }
     }
 
     // Check guess, return true if solution
     // If not, add what we learned from guess to Critera
     private boolean checkGuess(String guess) {
-        if (guess.equals(solution)) {
+        if (SolutionChecker.checkGuess(guess)) {
             System.out.println("Found solution");
             return true;
         }
-        findLettersNotInSolution(guess); //Find letters not in guess, then prunes words that contain these letters
+        mapGuessToCritera(guess); //Find letters not in guess, then prunes words that contain these letters
         filterWordsByGrays();
 
         return false;
     }
 
-    private void findLettersNotInSolution(String guess) {
-        // Check for each letter of guess in the solution
-        for (int i = 0; i < guess.length(); i++) { // For every letter in the guess
+    private void mapGuessToCritera(String guess) {
+        LetterColor[] guessResult = SolutionChecker.getResult(guess); 
+        for (int i = 0; i < guessResult.length; i++){ //For every letter result
             char guessLetter = guess.charAt(i);
-            if (!solution.contains(String.valueOf(guessLetter))) { // If solution not contain guess letter, add to not in solution (grays)
-                if (!notInSolution.contains(guessLetter)) { // Only add if unique
-                    System.out.println("SOLVER: Our solution does not contain: " + guessLetter);
-                    notInSolution.add(guessLetter);
-                }
+            switch(guessResult[i]) {
+                case Gray:
+                    if (!notInSolution.contains(guessLetter)) { // Only add if unique
+                        System.out.println("SOLVER: Our solution does not contain: " + guessLetter);
+                        notInSolution.add(guessLetter);
+                    }
+                    break;
+                case Green:
+                    break;
+                case Yellow:
+                    break;
+                default:
+                    break;
+
             }
         }
     }
