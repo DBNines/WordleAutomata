@@ -1,4 +1,4 @@
-package src;
+package wordleautomata;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import src.Checker.LetterColor;
+import wordleautomata.Checker.LetterColor;
 
 public class Eval {
     private ArrayList<String> answerList = new ArrayList<>();

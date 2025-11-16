@@ -1,10 +1,10 @@
-package src;
+package wordleautomata;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-import src.Checker.LetterColor;
+import wordleautomata.Checker.LetterColor;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
