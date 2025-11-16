@@ -7,11 +7,11 @@ import java.util.Random;
 import wordleautomata.Checker.LetterColor;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Solver {
-    private static final String guessListFileName = "guess_list.txt";
+    private static final String guessListFileName = "/guess_list.txt";
     private ArrayList<String> openGuessList;
     private ArrayList<String> guessHistory = new ArrayList<>();
     private Checker SolutionChecker; 
@@ -217,7 +217,7 @@ public class Solver {
 
     // Load the list of gusses into a new array list
     private ArrayList<String> loadGuessList() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(guessListFileName))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(guessListFileName)))) {
             String line;
             ArrayList<String> list = new ArrayList<>();
             while ((line = reader.readLine()) != null) {
